@@ -473,7 +473,6 @@ function saveNews(news) {
     news.category = category;
 
 
-    saved.push(news);
     localStorage.setItem("savedNews", JSON.stringify(saved));
 
 

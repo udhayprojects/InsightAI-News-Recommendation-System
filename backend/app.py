@@ -8,30 +8,30 @@ import yfinance as yf
 app = Flask(__name__)
 CORS(app)
 
-# 🔥 load users
+# load users
 try:
     with open("users.json") as f:
         users = json.load(f)
 except:
     users = {}
-    
-# 🔥 save users helper
+        
+#  save users helper
 def save_users():
     with open("users.json", "w") as f:
         json.dump(users, f, indent=4)
 
-# ✅ test route
+#  test route
 @app.route('/')
 def home():
     return "Backend is running"
 
-# 📰 NEWS API
+#  NEWS API
 @app.route('/news', methods=['GET'])
 def get_news():
     query = request.args.get('q', '').strip()
 
     if not query or query.strip() == "":
-    # ✅ trending fallback
+    #  trending fallback
         url = f"https://newsapi.org/v2/everything?q=india&language=en&sortBy=publishedAt&pageSize=10&apiKey=eb775b5b07bd41d792ef2b49b47ca6b8"
     else:
         url = f"https://newsapi.org/v2/everything?q={query}&language=en&sortBy=publishedAt&apiKey=eb775b5b07bd41d792ef2b49b47ca6b8"
@@ -39,7 +39,7 @@ def get_news():
     response = requests.get(url)
     data = response.json()
 
-    print("API RESPONSE:", data)  # 🔥 debug
+    print("API RESPONSE:", data)  #  debug
 
     articles = []
     for article in data.get("articles", []):
@@ -52,7 +52,7 @@ def get_news():
 
     return jsonify(articles)
 
-# 🔐 SIGNUP
+#  SIGNUP
 @app.route('/signup', methods=['POST'])
 def signup():
     data = request.json
@@ -64,13 +64,13 @@ def signup():
 
     users[username] = {
         "password": generate_password_hash(password),
-        "interests": []   # 🔥 store multiple interests
+        "interests": []   #  store multiple interests
     }
 
     save_users()
     return jsonify({"message": "Signup successful"})
 
-# 🔐 LOGIN (FIXED)
+#  LOGIN (FIXED)
 @app.route('/login', methods=['POST'])
 def login():
     data = request.json
@@ -82,7 +82,7 @@ def login():
 
     return jsonify({"message": "Invalid credentials"})
 
-# 🧠 SAVE INTEREST
+#  SAVE INTEREST
 @app.route('/save-interest', methods=['POST'])
 def save_interest():
     data = request.json
@@ -97,7 +97,7 @@ def save_interest():
     save_users()
     return jsonify({"message": "Interest saved"})
 
-# 🤖 GET RECOMMENDATION (AI LOGIC)
+#  GET RECOMMENDATION (AI LOGIC)
 @app.route('/get-interest', methods=['GET'])
 def get_interest():
     username = request.args.get("username")
@@ -110,7 +110,7 @@ def get_interest():
     if not interests:
         return jsonify({"topic": "technology"})
 
-    # 🔥 AI logic: most frequent
+    #  AI logic: most frequent
     count = {}
     for i in interests:
         count[i] = count.get(i, 0) + 1
