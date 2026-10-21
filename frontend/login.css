@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 🔥 Full screen video */
+#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Center container */
+body {
+    font-family: Arial;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--text);
+}
+
+/* Glass login box */
+.container {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 35px;
+    border-radius: 16px;
+    width: 300px;
+    text-align: center;
+    color: white;
+
+    /* backdrop-filter: blur(6px); optional */
+}
+
+/* Inputs */
+.input-box {
+    position: relative;
+    margin: 10px 0;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px 35px;
+    border-radius: 10px;
+    border: none;
+}
+
+/* Icons */
+.input-box span {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.input-box span:first-child {
+    left: 10px;
+}
+
+.toggle {
+    right: 10px;
+    cursor: pointer;
+}
+
+/* Buttons */
+button {
+    width: 70%;
+    margin: 8px auto;
+    display: block;
+
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+
+    background: var(--primary);
+    color: white;
+}
+
+button:hover {
+    background: var(--secondary);
+}
+.secondary {
+    background: #64748b;
+}
+
+.secondary:hover {
+    background: #475569;
+}
+
+.logo-img {
+    width: 80px;
+    margin-bottom: 10px;
+}

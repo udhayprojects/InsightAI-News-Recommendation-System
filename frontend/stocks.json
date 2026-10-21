@@ -1,0 +1,8 @@
+[
+  { "name": "Reliance", "price": 2500, "change": 20 },
+  { "name": "TCS", "price": 3800, "change": -15 },
+  { "name": "Infosys", "price": 1450, "change": 10 },
+  { "name": "HDFC Bank", "price": 1550, "change": -5 },
+  { "name": "ICICI Bank", "price": 1050, "change": 12 },
+  { "name": "Wipro", "price": 450, "change": -8 }
+]

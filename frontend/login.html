@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>             
+<body>
+
+<!-- 🔥 Background Video -->
+<video autoplay muted loop id="bg-video">
+    <source src="Loginanime.mp4" type="video/mp4">
+</video>
+
+<!-- 🔐 Login Box -->
+<div class="container">
+    <h2>Welcome Back</h2>
+
+    <div class="input-box">
+        <span>👤</span>
+        <input type="text" id="username" placeholder="Username">
+    </div>
+
+    <div class="input-box">
+        <span>🔒</span>
+        <input type="password" id="password" placeholder="Password">
+        <span class="toggle" onclick="togglePassword()">👁️</span>
+    </div>
+
+    <button onclick="login()">Login</button>
+    <button onclick="signup()" class="secondary">Signup</button>
+
+    <p id="msg"></p>
+</div>
+
+<script src="login.js"></script>
+
+</body>
+</html>
+
+

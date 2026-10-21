@@ -1,0 +1,139 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsightAI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- 🔔 Notification Bell -->
+    <div class="notification-container">
+        <button id="notificationBell" onclick="toggleNotifications()">
+            🔔
+            <span id="notificationCount">0</span>
+        </button>
+
+        <div id="notificationPanel" class="notification-panel">
+            <h3>🔔 Notifications</h3>
+            <div id="notificationList">
+                <p>No notifications yet.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="appContent">
+
+        <!-- 🔝 TOP BAR -->
+        <div class="top-bar">
+            <div id="usernameDisplay"></div>
+
+            <div class="top-bar-right">
+                <div id="google_translate_element"></div>
+
+                <a href="saved.html" class="theme-toggle">❤️ Saved</a>
+
+                <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+    <!-- 🔴 Breaking News Ribbon -->
+<div class="breaking-news-container">
+    <span class="breaking-label">🔴 BREAKING</span>
+
+    <div class="breaking-news-wrapper">
+        <div id="breakingNewsText" class="breaking-news-text">
+            Loading latest breaking news...
+        </div>
+    </div>
+</div>
+
+        <!-- 🧠 INFO BAR -->
+        <div class="info-bar">
+            <div id="timeBox">⏰ --</div>
+
+            <div id="weatherBox" class="weather-card">
+                🌦️ Loading...
+            </div>
+
+            <div id="stockBox">📈 Loading...</div>
+        </div>
+
+        <!-- 🔍 SEARCH -->
+        <div class="search-wrapper">
+    <div class="search-bar">
+
+        <input
+            id="search"
+            type="text"
+            placeholder="Search news..."
+            onkeydown="if(event.key==='Enter') getNews();"
+        >
+
+        <button
+            id="voiceBtn"
+            type="button"
+            onclick="startVoiceSearch()"
+            title="Voice Search">
+            🎤
+        </button>
+
+        <button
+            type="button"
+            onclick="getNews()"
+            title="Search">
+            🔍
+        </button>
+
+    </div>
+</div>
+
+        <!-- 🔥 TABS -->
+        <div class="tabs">
+            <button onclick="showTab('trending', this)" class="active">🔥 Trending</button>
+            <button onclick="showTab('recommended', this)">⭐ Recommended</button>
+        </div>
+
+        <!-- ⚡ QUICK ACCESS -->
+        <div class="quick-access">
+            <h3>⚡ Quick Access</h3>
+
+            <div class="qa-item" onclick="loadCategory('Technology')">🤖 AI</div>
+            <div class="qa-item" onclick="loadCategory('Cricket')">🏏 Cricket</div>
+            <div class="qa-item" onclick="loadCategory('Stocks')">📈 Stocks</div>
+            <div class="qa-item" onclick="loadCategory('Business')">💼 Business</div>
+            <div class="qa-item" onclick="loadCategory('Health')">🧬 Health</div>
+            <div class="qa-item" onclick="loadCategory('Science')">🔬 Science</div>
+            <div class="qa-item" onclick="loadCategory('Entertainment')">🎬 Entertainment</div>
+        </div>
+
+        <div id="loading" style="display:none;text-align:center;padding:20px;">
+            <h3>Loading News...</h3>
+        </div>
+        <!-- 📰 NEWS -->
+        <div id="newsContainer"></div>
+
+    </div>
+
+    <!-- 🌐 GOOGLE TRANSLATE -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,pa'
+            }, 'google_translate_element');
+        }
+    </script>
+
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- 🔥 JS -->
+    <script src="notifications.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

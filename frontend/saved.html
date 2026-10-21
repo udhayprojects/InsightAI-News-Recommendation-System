@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saved News</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+.category-filter button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 25px;
+    background: #e5e5e5;
+    color: #333;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-filter button:hover {
+    background: #dcdcdc;
+}
+
+.category-filter button.active {
+    background: linear-gradient(135deg, #6c63ff, #4facfe);
+    color: white;
+    font-weight: 600;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(108, 99, 255, 0.4);
+}
+</style>
+</head>
+
+<body>
+
+<div id="appContent">
+
+<h2 class="center-text">❤️ Saved News</h2>
+
+<!-- 🔥 CATEGORY FILTER -->
+<div class="category-filter">
+    <button class="active">All</button>
+    <button>AI</button>
+    <!-- <button>Cricket</button> -->
+    <button>Stocks</button>
+    <button>General</button>
+</div>
+
+<div id="savedContainer"></div>
+
+</div>
+
+<script>
+let saved = JSON.parse(localStorage.getItem("savedNews")) || [];
+let currentCategory = "All";
+
+const container = document.getElementById("savedContainer");
+
+
+// 🔥 AUTO CATEGORY DETECT
+function detectCategory(news) {
+    const text = (news.title + " " + (news.description || "")).toLowerCase();
+
+    if (text.includes("ai") || text.includes("artificial intelligence")) return "AI";
+    if (text.includes("cricket") || text.includes("ipl")) return "Cricket";
+    if (text.includes("stock") || text.includes("market") || text.includes("share")) return "Stocks";
+
+    return "General";
+}
+
+
+// 🔥 CLEAN OLD DATA (VERY IMPORTANT FIX)
+saved = saved.map(n => ({
+    ...n,
+    category: n.category || detectCategory(n)
+}));
+
+localStorage.setItem("savedNews", JSON.stringify(saved));
+
+
+// 🎯 BUTTON CLICK
+document.querySelectorAll(".category-filter button").forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll(".category-filter button")
+            .forEach(b => b.classList.remove("active"));
+
+        btn.classList.add("active");
+
+        currentCategory = btn.innerText;
+        renderSaved();
+    };
+});
+
+
+// 🎨 RENDER
+function renderSaved() {
+    if (saved.length === 0) {
+        container.innerHTML = `<h3>No saved news 😕</h3>`;
+        return;
+    }
+
+    let filtered = saved.filter(n =>
+        currentCategory === "All" || (n.category || "General") === currentCategory
+    );
+
+    if (filtered.length === 0) {
+        container.innerHTML = `<h3>No news in this category 😕</h3>`;
+        return;
+    }
+
+    container.innerHTML = filtered.map((n) => `
+        <div class="card">
+            ${n.image ? `<img src="${n.image}">` : `<div class="no-img">No Image</div>`}
+            <div class="content">
+                <h3>${n.title || "No Title"}</h3>
+                <p>${n.description || "No description available"}</p>
+
+                <small>📌 ${n.category}</small>
+
+                <div class="actions">
+                    <a href="${n.url || "#"}" target="_blank">📖</a>
+                    <button onclick="removeNews('${(n.title || "").replace(/'/g, "")}')">🗑️</button>
+                </div>
+            </div>
+        </div>
+    `).join("");
+}
+
+
+// 🗑️ REMOVE
+function removeNews(title) {
+    saved = saved.filter(n => n.title !== title);
+    localStorage.setItem("savedNews", JSON.stringify(saved));
+    renderSaved();
+}
+
+
+// 🚀 LOAD
+renderSaved();
+
+</script>
+
+</body>
+</html>
